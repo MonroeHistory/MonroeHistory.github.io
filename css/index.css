@@ -60,7 +60,7 @@ body{
 .element h4{
 	font-family: 'Raleway', sans-serif;
 	color: white;
-	font-size: 200%
+	font-size: 80%
 }
 .element p{
 	font-family: 'Raleway', sans-serif;
@@ -99,40 +99,54 @@ a:link, a:visited {
 a:hover, a:active {
 	background-color: #2F2F2F;
 }
-div.beforeandafter{ /* main container */
-	background: white;
-	border: 1px solid gray;
-	display: block;
-	width: 234px; /* width of main container */
-	height: 320px; /* height of main container */
-	position: relative;
-	perspective: 1000px; /* Greater the value, less pronounced the 3D effect */
+/**
+ * Image slider with pure CSS
+ * Original version in http://demosthenes.info/blog/css
+ */
+
+.image-slider {
+	position:relative;
+	display: inline-block;
+	line-height: 0;
 }
 
-div.before, div.after{ /* before and after DIVs within main container */
-	height: 100%;
+/**
+ * Image slider with pure CSS
+ * Original version in http://demosthenes.info/blog/css
+ */
+
+.image-slider {
+	position:relative;
+	display: inline-block;
+	line-height: 0;
+}
+
+/* Could use a pseudo-element, but they’re currently
+   super buggy. See: http://dabblet.com/gist/ab432c3f6a8f672cd077 */
+.image-slider > div {
 	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	z-index: 100;
-	transform-style: preserve-3d; /* position both children DIVs in 3D space */
-	transition: all 1s ease-in-out; /* CSS transition. */
+	top: 0; bottom: 0; left: 0;
+	width: 25px;
+	max-width: 100%;
+	overflow: hidden;
+	resize: horizontal;
 }
 
-div.after{
-	transform: rotateY(-180deg); /* rotate "after" DIV by -180deg to start */
-	z-index: 1; /* z-index of after div should be smaller than before's */
+/* Cross-browser resizer styling */
+.image-slider > div:before {
+	content: '';
+	position: absolute;
+	right: 0; bottom: 0;
+	width: 13px; height: 13px;
+	padding: 5px;
+	background: linear-gradient(-45deg, white 50%, transparent 0);
+	background-clip: content-box;
+	cursor: ew-resize;
+	-webkit-filter: drop-shadow(0 0 2px black);
+	filter: drop-shadow(0 0 2px black);
 }
 
-div.before{
-	backface-visibility: hidden; /* hide backface of "before" DIV */
-}
-
-div.beforeandafter:hover div.before{
-	transform: rotateY(180deg)
-}
-
-div.beforeandafter:hover div.after{
-	transform: rotateY(0)
+.image-slider img {
+	user-select: none;
+	max-width: 400px;
 }
